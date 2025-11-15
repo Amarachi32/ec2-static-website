@@ -398,7 +398,7 @@ curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-da
 *   GitHub: [@Amarachi32](https://github.com/Amarachi32)
     
 *   Medium: [@prptamarachi](https://medium.com/@prptamarachi/deploying-a-scalable-web-application-on-aws-a-hands-on-journey-from-ec2-to-load-balancers-679e52ca6f83)
-*   Google Docs: for Image reference:  (https://docs.google.com/document/d/1hNGVsFw9butB6EbjF_4Ne_KruIdosZ70p74xt5P0WOs/edit?usp=sharing)
+*   Google Docs: for Image reference:  [@amarachi](https://docs.google.com/document/d/1hNGVsFw9butB6EbjF_4Ne_KruIdosZ70p74xt5P0WOs/edit?usp=sharing)
     
 
 🤝 Contributing
