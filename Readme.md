@@ -99,11 +99,15 @@ cd ec2-static-website
 
 **EC2 Security Group (ec2-web-sg):**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Inbound Rules:  - SSH (22) from Your IP  - HTTP (80) from ALB Security Group   `
+Inbound Rules:
+- SSH (22) from Your IP
+- HTTP (80) from ALB Security Group  `
 
 **ALB Security Group (alb-sg):**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Inbound Rules:  - HTTP (80) from 0.0.0.0/0  - HTTPS (443) from 0.0.0.0/0   `
+Inbound Rules:
+- HTTP (80) from 0.0.0.0/0
+- HTTPS (443) from 0.0.0.0/0 `
 
 ### 3\. Launch EC2 Instances
 
