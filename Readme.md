@@ -61,14 +61,13 @@ This project demonstrates:
 
 ### 1. Clone the Repository
 
-```bash
+
+bash
 git clone https://github.com/YOUR_USERNAME/ec2-static-website.git
 cd ec2-static-website
 
-📝 Setup Instructions
---------------------- 
 
-### 2\. AWS Infrastructure Setup
+### 2. AWS Infrastructure Setup
 
 #### Create VPC
 
