@@ -134,7 +134,13 @@ Edit ansible/inventory.ini:
 
 ini
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   [webservers]  web-server-1 ansible_host= ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem  web-server-2 ansible_host= ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem  [webservers:vars]  ansible_python_interpreter=/usr/bin/python3  ansible_ssh_common_args='-o StrictHostKeyChecking=no'   `
+[webservers]
+web-server-1 ansible_host=<EC2_PUBLIC_IP_1> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem
+web-server-2 ansible_host=<EC2_PUBLIC_IP_2> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem
+
+[webservers:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'`
 
 #### Update Playbook Variables
 
@@ -142,23 +148,25 @@ Edit ansible/deploy-website.yml and update:
 
 yaml
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   vars:    github_repo: "https://github.com/YOUR_USERNAME/ec2-static-website.git"   `
+vars:
+  github_repo: "https://github.com/YOUR_USERNAME/ec2-static-website.git"  `
 
 #### Test Connection
 
 bash
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   cd ansible  ansible -i inventory.ini webservers -m ping   `
-
+cd ansible
+ansible -i inventory.ini webservers -m ping
 Expected output:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   web-server-1 | SUCCESS => { ... }  web-server-2 | SUCCESS => { ... }   `
+web-server-1 | SUCCESS => { ... }
+web-server-2 | SUCCESS => { ... }`
 
 ### 5\. Deploy with Ansible
 
 bash
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ansible-playbook -i inventory.ini deploy-website.yml   `
+ansible-playbook -i inventory.ini deploy-website.yml
 
 This playbook will:
 
@@ -205,13 +213,14 @@ This playbook will:
 
 Edit ec2-web-sg to only allow HTTP from ALB:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Remove: HTTP (80) from 0.0.0.0/0  Add: HTTP (80) from alb-sg   `
+Remove: HTTP (80) from 0.0.0.0/0
+Add: HTTP (80) from alb-sg`
 
 ### 7\. Test Deployment
 
 Access your website via ALB DNS:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   http://your-alb-dns-name-xxxx.region.elb.amazonaws.com   `
+http://your-alb-dns-name-xxxx.region.elb.amazonaws.com
 
 Refresh the page multiple times - you should see different instance IPs and IDs, demonstrating load balancing.
 
@@ -233,16 +242,47 @@ Refresh the page multiple times - you should see different instance IPs and IDs,
 
 json
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {      "Version": "2012-10-17",      "Statement": [          {              "Sid": "PublicReadGetObject",              "Effect": "Allow",              "Principal": "*",              "Action": "s3:GetObject",              "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"          }      ]  }   `
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+        }
+    ]
+}  `
 
 ### Access S3 Website
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   http://your-bucket-name.s3-website-region.amazonaws.com   `
+http://your-bucket-name.s3-website-region.amazonaws.com
 
 🔄 EC2 vs S3 Comparison
 -----------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   FeatureEC2 + ALBS3 Static HostingCostHigher (compute + storage)Lower (storage only)ScalabilityManual/Auto-scalingAutomatic unlimitedMaintenanceRequires patching, updatesZero maintenanceDynamic Content✅ Yes❌ Static onlyCompute Power✅ Full control❌ No computeSSL/CDNManual setupEasy with CloudFrontBest ForWeb apps, APIs, databasesStatic sites, SPAs   `
+# EC2 vs S3 Comparison
+
+  -------------------------------------------------------------------------
+  Feature           EC2 + ALB                    S3 Static Hosting
+  ----------------- ---------------------------- --------------------------
+  **Cost**          Higher (compute + storage)   Lower (storage only)
+
+  **Scalability**   Manual/Auto-scaling          Automatic unlimited
+
+  **Maintenance**   Requires patching, updates   Zero maintenance
+
+  **Dynamic         ✅ Yes                       ❌ Static only
+  Content**                                      
+
+  **Compute Power** ✅ Full control              ❌ No compute
+
+  **SSL/CDN**       Manual setup                 Easy with CloudFront
+
+  **Best For**      Web apps, APIs, databases    Static sites, SPAs
+  -------------------------------------------------------------------------
+  `
 
 📸 Screenshots Required
 -----------------------
@@ -271,7 +311,20 @@ For your documentation, capture:
 
 bash
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # 1. Delete ALB  aws elbv2 delete-load-balancer --load-balancer-arn   aws elbv2 delete-target-group --target-group-arn   # 2. Terminate EC2 Instances  aws ec2 terminate-instances --instance-ids   # 3. Empty and delete S3 bucket  aws s3 rm s3://your-bucket-name --recursive  aws s3 rb s3://your-bucket-name  # 4. Delete network resources (via Console or CLI)   `
+``` bash
+# 1. Delete ALB
+aws elbv2 delete-load-balancer --load-balancer-arn <ALB_ARN>
+aws elbv2 delete-target-group --target-group-arn <TG_ARN>
+
+# 2. Terminate EC2 Instances
+aws ec2 terminate-instances --instance-ids <INSTANCE_ID_1> <INSTANCE_ID_2>
+
+# 3. Empty and delete S3 bucket
+aws s3 rm s3://your-bucket-name --recursive
+aws s3 rb s3://your-bucket-name
+
+# 4. Delete network resources (via Console or CLI)
+```
 
 Or use AWS Console:
 
@@ -314,14 +367,23 @@ Or use AWS Console:
 ### Ansible Connection Failed
 
 bash
+```bash
+# Check SSH access
+ssh -i ~/.ssh/ec2-project-key.pem ec2-user@<PUBLIC_IP>
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # Check SSH access  ssh -i ~/.ssh/ec2-project-key.pem ec2-user@  # Verify security group allows SSH from your IP   `
-
+# Verify security group allows SSH from your IP```
+```
 ### Website Not Loading
 
 bash
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # Check NGINX status on EC2  sudo systemctl status nginx  # Check NGINX logs  sudo tail -f /var/log/nginx/error.log   `
+```bash
+# Check NGINX status on EC2
+sudo systemctl status nginx
+
+# Check NGINX logs
+sudo tail -f /var/log/nginx/error.log
+```
 
 ### ALB Health Checks Failing
 
@@ -336,7 +398,11 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
 
 bash
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML``   # SSH into instance and test  TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`  curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/local-ipv4   ``
+```bash
+# SSH into instance and test
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/local-ipv4
+```
 
 📚 Additional Resources
 -----------------------
