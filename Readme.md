@@ -45,14 +45,14 @@ This project demonstrates:
 
 ## 🚀 Prerequisites
 
-### Local Machine Requirements
+## Local Machine Requirements
 - Python 3.8+
 - Ansible 2.9+
 - AWS CLI
 - Git
 - SSH client
 
-### AWS Requirements
+## AWS Requirements
 - AWS Free Tier account
 - IAM user with EC2, VPC, S3, and ALB permissions
 - EC2 key pair created
@@ -62,10 +62,10 @@ This project demonstrates:
 ### 1. Clone the Repository
 
 
-bash
+```bash
 git clone https://github.com/YOUR_USERNAME/ec2-static-website.git
 cd ec2-static-website
-
+```
 
 ### 2. AWS Infrastructure Setup
 
@@ -99,15 +99,19 @@ cd ec2-static-website
 
 **EC2 Security Group (ec2-web-sg):**
 
+```bash
 Inbound Rules:
 - SSH (22) from Your IP
-- HTTP (80) from ALB Security Group  `
+- HTTP (80) from ALB Security Group
+```
 
 **ALB Security Group (alb-sg):**
 
+```bash
 Inbound Rules:
 - HTTP (80) from 0.0.0.0/0
 - HTTPS (443) from 0.0.0.0/0 `
+```
 
 ### 3\. Launch EC2 Instances
 
@@ -133,7 +137,7 @@ Launch 2 t2.micro instances:
 Edit ansible/inventory.ini:
 
 ini
-
+```bash
 [webservers]
 web-server-1 ansible_host=<EC2_PUBLIC_IP_1> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem
 web-server-2 ansible_host=<EC2_PUBLIC_IP_2> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/ec2-project-key.pem
@@ -141,6 +145,7 @@ web-server-2 ansible_host=<EC2_PUBLIC_IP_2> ansible_user=ec2-user ansible_ssh_pr
 [webservers:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'`
+```
 
 #### Update Playbook Variables
 
@@ -149,18 +154,20 @@ Edit ansible/deploy-website.yml and update:
 yaml
 
 vars:
-  github_repo: "https://github.com/YOUR_USERNAME/ec2-static-website.git"  `
+ ```bash  github_repo: "https://github.com/YOUR_USERNAME/ec2-static-website.git"  ````
 
 #### Test Connection
 
 bash
-
+```bash
 cd ansible
 ansible -i inventory.ini webservers -m ping
+```
 Expected output:
-
+```bash
 web-server-1 | SUCCESS => { ... }
 web-server-2 | SUCCESS => { ... }`
+```
 
 ### 5\. Deploy with Ansible
 
@@ -239,7 +246,7 @@ Refresh the page multiple times - you should see different instance IPs and IDs,
     
 
 ### Bucket Policy
-
+```bash
 json
 
 {
@@ -254,10 +261,12 @@ json
         }
     ]
 }  `
+```
 
 ### Access S3 Website
-
+```bash
 http://your-bucket-name.s3-website-region.amazonaws.com
+```
 
 🔄 EC2 vs S3 Comparison
 -----------------------
