@@ -291,26 +291,7 @@ http://your-bucket-name.s3-website-region.amazonaws.com
 
   **Best For**      Web apps, APIs, databases    Static sites, SPAs
   -------------------------------------------------------------------------
-  `
 
-📸 Screenshots Required
------------------------
-
-For your documentation, capture:
-
-1.  ✅ Browser showing ALB DNS with Instance 1 info
-    
-2.  ✅ Browser showing ALB DNS with Instance 2 info
-    
-3.  ✅ Ansible playbook execution in terminal
-    
-4.  ✅ AWS Console - ALB dashboard
-    
-5.  ✅ AWS Console - EC2 instances running
-    
-6.  ✅ S3 static website in browser
-    
-7.  ✅ S3 bucket configuration
     
 
 🧹 Cleanup (IMPORTANT!)
@@ -352,23 +333,6 @@ Or use AWS Console:
 7.  Delete VPC (this deletes route tables and security groups)
     
 
-🎓 What You'll Learn
---------------------
-
-*   ✅ AWS VPC networking and security groups
-    
-*   ✅ Infrastructure as Code with Ansible
-    
-*   ✅ High availability architecture patterns
-    
-*   ✅ Load balancing concepts
-    
-*   ✅ Static vs dynamic hosting trade-offs
-    
-*   ✅ Cost optimization strategies
-    
-*   ✅ DevOps best practices
-    
 
 🐛 Troubleshooting
 ------------------
@@ -425,19 +389,16 @@ curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-da
 *   [NGINX Documentation](https://nginx.org/en/docs/)
     
 
-📄 License
-----------
-
-This project is for educational purposes.
 
 👤 Author
 ---------
 
 **Your Name**
 
-*   GitHub: [@yourusername](https://github.com/yourusername)
+*   GitHub: [@Amarachi32](https://github.com/Amarachi32)
     
-*   Medium: [@yourusername](https://medium.com/@yourusername)
+*   Medium: [@prptamarachi](https://medium.com/@prptamarachi/deploying-a-scalable-web-application-on-aws-a-hands-on-journey-from-ec2-to-load-balancers-679e52ca6f83)
+*   Google Docs: for Image reference:  (https://docs.google.com/document/d/1hNGVsFw9butB6EbjF_4Ne_KruIdosZ70p74xt5P0WOs/edit?usp=sharing)
     
 
 🤝 Contributing
